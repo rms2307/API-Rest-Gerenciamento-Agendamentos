@@ -15,7 +15,6 @@ public class AgendamentoService {
 	private AgendamentoRepository repo;
 	
 	public List<Agendamento> listaTodosAgendamentos() {
-		System.out.println("Agendamentos");
 		return repo.findAll();
 	}
 
