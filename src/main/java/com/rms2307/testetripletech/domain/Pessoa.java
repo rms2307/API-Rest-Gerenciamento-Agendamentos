@@ -1,21 +1,33 @@
 package com.rms2307.testetripletech.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "nome")
 	private String nome;
-	private Date dataNascimento;
+	@Column(name = "datadenascimento")
+	private String dataNascimento;
+	@Column(name = "email")
 	private String email;
+	@Column(name = "telefone")
 	private String telefone;
 	
 	public Pessoa() {
 	}
 
-	public Pessoa(Integer id, String nome, Date dataNascimento, String email, String telefone) {
+	public Pessoa(Integer id, String nome, String dataNascimento, String email, String telefone) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -40,11 +52,11 @@ public class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
-	public Date getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

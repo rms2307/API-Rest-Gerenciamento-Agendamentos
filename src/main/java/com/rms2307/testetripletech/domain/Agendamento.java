@@ -1,20 +1,31 @@
 package com.rms2307.testetripletech.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Agendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "local")
 	private String local;
-	private Date dataInicio;
-	private Date dataFim;
+	@Column(name = "datainicio")
+	private String dataInicio;
+	@Column(name = "datafim")
+	private String dataFim;
 	
 	public Agendamento() {
 	}
 
-	public Agendamento(Integer id, String local, Date dataInicio, Date dataFim) {
+	public Agendamento(Integer id, String local, String dataInicio, String dataFim) {
 		super();
 		this.id = id;
 		this.local = local;
@@ -38,19 +49,19 @@ public class Agendamento implements Serializable {
 		this.local = local;
 	}
 
-	public Date getDatainicio() {
+	public String getDatainicio() {
 		return dataInicio;
 	}
 
-	public void setDatainicio(Date datainicio) {
+	public void setDatainicio(String datainicio) {
 		this.dataInicio = datainicio;
 	}
 
-	public Date getDatafim() {
+	public String getDatafim() {
 		return dataFim;
 	}
 
-	public void setDatafim(Date datafim) {
+	public void setDatafim(String datafim) {
 		this.dataFim = datafim;
 	}
 

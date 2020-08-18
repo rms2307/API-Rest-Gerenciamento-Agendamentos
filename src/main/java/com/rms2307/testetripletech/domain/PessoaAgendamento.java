@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class PessoaAgendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Pessoa pessoaId;
 	private Agendamento agendamentoId;
-	
+
 	public PessoaAgendamento() {
-		
+
 	}
 
 	public PessoaAgendamento(Pessoa pessoaId, Agendamento agendamentoId) {
