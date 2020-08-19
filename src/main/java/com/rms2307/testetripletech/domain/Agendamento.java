@@ -37,14 +37,6 @@ public class Agendamento implements Serializable {
 		this.dataFim = dataFim;
 	}
 
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
-	}
-
 	public Integer getId() {
 		return id;
 	}

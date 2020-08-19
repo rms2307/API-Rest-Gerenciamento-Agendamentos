@@ -30,6 +30,10 @@ public class AgendamentoService {
 	public List<Agendamento> listarTodosAgendamentos() {
 		return repo.findAll();
 	}
+	
+	public List<Agendamento> listarAgendamentoPorDataHora(String dataInicio, String dataFim) {
+		return repo.buscarAgendamentoPorDataHora(dataInicio, dataFim);
+	}	
 
 	public Agendamento salvar(Agendamento obj) {
 		obj.setId(null);
