@@ -3,6 +3,7 @@ package com.rms2307.testetripletech.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.cfg.beanvalidation.IntegrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class AgendamentoService {
 
 	@Autowired
 	private PessoaAgendamentoRepository pessoaAgendamentoRepository;
+	
 
 	public List<Agendamento> listarTodosAgendamentos() {
 		return repo.findAll();
@@ -37,10 +39,18 @@ public class AgendamentoService {
 
 	public Agendamento salvar(Agendamento obj) {
 		obj.setId(null);
+		List<Agendamento> agendamentos = repo.buscarAgendamentoPorDataHora(obj.getDataInicio(), obj.getDataFim());
+		if(!agendamentos.isEmpty()) {
+			throw new IntegrationException("Já existe um AGENDAMENTO para este periodo.");
+		}
 		return repo.save(obj);
 	}
 
 	public Agendamento atualizar(Agendamento obj) {
+		List<Agendamento> agendamentos = repo.buscarAgendamentoPorDataHora(obj.getDataInicio(), obj.getDataFim());
+		if(!agendamentos.isEmpty()) {
+			throw new IntegrationException("Já existe um AGENDAMENTO para este periodo.");
+		}
 		Optional<Agendamento> novoObj = repo.findById(obj.getId());
 		atualizarDados(novoObj.orElseThrow(null), obj);
 		return repo.save(novoObj.orElseThrow(null));
