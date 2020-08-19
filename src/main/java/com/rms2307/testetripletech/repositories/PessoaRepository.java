@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.rms2307.testetripletech.domain.Pessoa;
 
 @Repository
-public interface PessoaRepository extends JpaRepository<Pessoa, Integer>{
+public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
 }

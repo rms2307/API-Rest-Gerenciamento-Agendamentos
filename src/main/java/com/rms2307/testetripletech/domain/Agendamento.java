@@ -11,17 +11,21 @@ import javax.persistence.Id;
 @Entity
 public class Agendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
+
 	@Column(name = "local")
 	private String local;
+
 	@Column(name = "datainicio")
 	private String dataInicio;
+
 	@Column(name = "datafim")
 	private String dataFim;
-	
+
 	public Agendamento() {
 	}
 
@@ -33,14 +37,6 @@ public class Agendamento implements Serializable {
 		this.dataFim = dataFim;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getLocal() {
 		return local;
 	}
@@ -49,20 +45,28 @@ public class Agendamento implements Serializable {
 		this.local = local;
 	}
 
-	public String getDatainicio() {
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDatainicio(String datainicio) {
-		this.dataInicio = datainicio;
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public String getDatafim() {
+	public String getDataFim() {
 		return dataFim;
 	}
 
-	public void setDatafim(String datafim) {
-		this.dataFim = datafim;
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
 	}
 
 	@Override

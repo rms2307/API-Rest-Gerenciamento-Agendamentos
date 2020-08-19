@@ -10,10 +10,10 @@ import com.rms2307.testetripletech.repositories.PessoaRepository;
 
 @Service
 public class PessoaService {
-	
+
 	@Autowired
 	private PessoaRepository repo;
-	
+
 	public List<Pessoa> listaTodasPessoas() {
 		return repo.findAll();
 	}

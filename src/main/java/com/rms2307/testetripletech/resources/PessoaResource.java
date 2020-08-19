@@ -14,12 +14,12 @@ import com.rms2307.testetripletech.services.PessoaService;
 @RestController
 @RequestMapping(value = "/pessoas")
 public class PessoaResource {
-	
+
 	@Autowired
 	private PessoaService service;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Pessoa>> listaTodasPessoas(){
+	public ResponseEntity<List<Pessoa>> listaTodasPessoas() {
 		List<Pessoa> pessoas = service.listaTodasPessoas();
 		return ResponseEntity.ok().body(pessoas);
 	}

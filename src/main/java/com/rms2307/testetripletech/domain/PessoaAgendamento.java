@@ -2,11 +2,17 @@ package com.rms2307.testetripletech.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "pessoaagendamento")
 public class PessoaAgendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Pessoa pessoaId;
-	private Agendamento agendamentoId;
+	@EmbeddedId
+	private PessoaAgendamentoPK id = new PessoaAgendamentoPK();
 
 	public PessoaAgendamento() {
 
@@ -14,32 +20,23 @@ public class PessoaAgendamento implements Serializable {
 
 	public PessoaAgendamento(Pessoa pessoaId, Agendamento agendamentoId) {
 		super();
-		this.pessoaId = pessoaId;
-		this.agendamentoId = agendamentoId;
+		id.setPessoaId(pessoaId);
+		id.setAgendamentoId(agendamentoId);
 	}
 
-	public Pessoa getPessoaId() {
-		return pessoaId;
+	public PessoaAgendamentoPK getId() {
+		return id;
 	}
 
-	public void setPessoaId(Pessoa pessoaId) {
-		this.pessoaId = pessoaId;
-	}
-
-	public Agendamento getAgendamentoId() {
-		return agendamentoId;
-	}
-
-	public void setAgendamentoId(Agendamento agendamentoId) {
-		this.agendamentoId = agendamentoId;
+	public void setId(PessoaAgendamentoPK id) {
+		this.id = id;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((agendamentoId == null) ? 0 : agendamentoId.hashCode());
-		result = prime * result + ((pessoaId == null) ? 0 : pessoaId.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -52,15 +49,10 @@ public class PessoaAgendamento implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		PessoaAgendamento other = (PessoaAgendamento) obj;
-		if (agendamentoId == null) {
-			if (other.agendamentoId != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!agendamentoId.equals(other.agendamentoId))
-			return false;
-		if (pessoaId == null) {
-			if (other.pessoaId != null)
-				return false;
-		} else if (!pessoaId.equals(other.pessoaId))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
