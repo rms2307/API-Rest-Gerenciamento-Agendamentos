@@ -13,8 +13,9 @@ import com.rms2307.testetripletech.domain.Agendamento;
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Integer> {
 	
 	@Query(value = "SELECT id, local, datainicio, datafim FROM agendamento a "
-			+ "WHERE TIMESTAMP(a.datainicio) >= :datainicio "
-			+ "AND TIMESTAMP(a.datafim) <= :datafim", nativeQuery = true)
+			+ "WHERE :datainicio BETWEEN TIMESTAMP(a.datainicio) AND TIMESTAMP(a.datafim) "
+			+ "OR :datafim BETWEEN TIMESTAMP(a.datainicio) AND TIMESTAMP(a.datafim)", 
+			nativeQuery = true)
 	List<Agendamento> buscarAgendamentoPorDataHora(@Param("datainicio") String dataInicio, @Param("datafim") String dataFim);
 	
 }
