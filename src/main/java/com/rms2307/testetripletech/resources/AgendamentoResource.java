@@ -16,8 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rms2307.testetripletech.domain.Agendamento;
 import com.rms2307.testetripletech.dto.AgendamentoNewDTO;
+import com.rms2307.testetripletech.dto.AgendamentoPorAnoMesDTO;
 import com.rms2307.testetripletech.dto.AgendamentoUpdateDTO;
-import com.rms2307.testetripletech.dto.BuscarAgendamentoPorDataHoraDTO;
 import com.rms2307.testetripletech.services.AgendamentoService;
 
 @RestController
@@ -32,10 +32,10 @@ public class AgendamentoResource {
 		List<Agendamento> agendamentos = service.listarTodosAgendamentos();
 		return ResponseEntity.ok().body(agendamentos);
 	}
-	
-	@GetMapping(value = "/datahora")
-	public ResponseEntity<List<Agendamento>> listarAgendamentoPorDataHora(@RequestBody BuscarAgendamentoPorDataHoraDTO objDTO) {
-		List<Agendamento> agendamentos = service.listarAgendamentoPorDataHora(objDTO.getDataInicio(), objDTO.getDataFim());
+
+	@GetMapping(value = "/buscarporanomes")
+	public ResponseEntity<List<Agendamento>> listarAgendamentosPorAnoMes(@RequestBody AgendamentoPorAnoMesDTO objDTO) {
+		List<Agendamento> agendamentos = service.listarAgendamentoPorAnoMes(objDTO.getAno(), objDTO.getMes());
 		return ResponseEntity.ok().body(agendamentos);
 	}
 

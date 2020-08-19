@@ -18,4 +18,10 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
 			nativeQuery = true)
 	List<Agendamento> buscarAgendamentoPorDataHora(@Param("datainicio") String dataInicio, @Param("datafim") String dataFim);
 	
+	@Query(value = "SELECT id, local, datainicio, datafim FROM agendamento a "
+			+ "WHERE YEAR(DATE(a.datainicio)) = :ano "
+			+ "AND MONTH (DATE(a.datainicio)) = :mes", 
+			nativeQuery = true)
+	List<Agendamento> buscarAgendamentoPorMesAno(@Param("ano") String ano, @Param("mes") String mes);
+	
 }

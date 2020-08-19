@@ -27,20 +27,19 @@ public class AgendamentoService {
 
 	@Autowired
 	private PessoaAgendamentoRepository pessoaAgendamentoRepository;
-	
 
 	public List<Agendamento> listarTodosAgendamentos() {
 		return repo.findAll();
 	}
-	
-	public List<Agendamento> listarAgendamentoPorDataHora(String dataInicio, String dataFim) {
-		return repo.buscarAgendamentoPorDataHora(dataInicio, dataFim);
-	}	
+
+	public List<Agendamento> listarAgendamentoPorAnoMes(String ano, String mes) {
+		return repo.buscarAgendamentoPorMesAno(ano, mes);
+	}
 
 	public Agendamento salvar(Agendamento obj) {
 		obj.setId(null);
 		List<Agendamento> agendamentos = repo.buscarAgendamentoPorDataHora(obj.getDataInicio(), obj.getDataFim());
-		if(!agendamentos.isEmpty()) {
+		if (!agendamentos.isEmpty()) {
 			throw new IntegrationException("Já existe um AGENDAMENTO para este periodo.");
 		}
 		return repo.save(obj);
@@ -48,7 +47,7 @@ public class AgendamentoService {
 
 	public Agendamento atualizar(Agendamento obj) {
 		List<Agendamento> agendamentos = repo.buscarAgendamentoPorDataHora(obj.getDataInicio(), obj.getDataFim());
-		if(!agendamentos.isEmpty()) {
+		if (!agendamentos.isEmpty()) {
 			throw new IntegrationException("Já existe um AGENDAMENTO para este periodo.");
 		}
 		Optional<Agendamento> novoObj = repo.findById(obj.getId());
