@@ -25,5 +25,4 @@ public class AgendamentoPorAnoMesDTO {
 		this.mes = mes;
 	}
 
-	
 }

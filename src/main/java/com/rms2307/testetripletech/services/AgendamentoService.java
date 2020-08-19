@@ -38,26 +38,27 @@ public class AgendamentoService {
 
 	public Agendamento salvar(Agendamento obj) {
 		obj.setId(null);
-		List<Agendamento> agendamentos = repo.buscarAgendamentoPorDataHora(obj.getDataInicio(), obj.getDataFim());
-		if (!agendamentos.isEmpty()) {
-			throw new IntegrationException("Já existe um AGENDAMENTO para este periodo.");
-		}
+		verificarConflitoDeAgendamento(obj);
 		return repo.save(obj);
 	}
 
 	public Agendamento atualizar(Agendamento obj) {
-		List<Agendamento> agendamentos = repo.buscarAgendamentoPorDataHora(obj.getDataInicio(), obj.getDataFim());
-		if (!agendamentos.isEmpty()) {
-			throw new IntegrationException("Já existe um AGENDAMENTO para este periodo.");
-		}
+		verificarConflitoDeAgendamento(obj);
 		Optional<Agendamento> novoObj = repo.findById(obj.getId());
 		atualizarDados(novoObj.orElseThrow(null), obj);
 		return repo.save(novoObj.orElseThrow(null));
 	}
 
-	public void atualizarDados(Agendamento novoObj, Agendamento obj) {
+	private void atualizarDados(Agendamento novoObj, Agendamento obj) {
 		novoObj.setDataInicio(obj.getDataInicio());
 		novoObj.setDataFim(obj.getDataFim());
+	}
+
+	private void verificarConflitoDeAgendamento(Agendamento obj) {
+		List<Agendamento> agendamentos = repo.buscarAgendamentoPorDataHora(obj.getDataInicio(), obj.getDataFim());
+		if (!agendamentos.isEmpty()) {
+			throw new IntegrationException("Já existe um AGENDAMENTO para este periodo.");
+		}
 	}
 
 	public Agendamento converterObjDTOparaObj(AgendamentoNewDTO objDTO) {
