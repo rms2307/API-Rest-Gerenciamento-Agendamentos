@@ -70,6 +70,18 @@ public class AgendamentoService {
 		return new Agendamento(objDTO.getId(), null, objDTO.getDataInicio(), objDTO.getDataFim());
 	}
 
+	public AgendamentoNewDTO converterListParaObj(List<String> dados) {
+		AgendamentoNewDTO obj = new AgendamentoNewDTO();
+		String[] ids = (dados.get(1)).split(",");
+		String[] datas = (dados.get(2)).split(",");
+		for (String id : ids) {
+			obj.getPessoasId().add(Integer.parseInt(id));
+		}
+		obj.setDataInicio(datas[0]);
+		obj.setDataFim(datas[1]);
+		return obj;
+	}
+
 	public void salvarPessoaAgendamento(AgendamentoNewDTO objDTO, Agendamento obj) {
 		for (Integer pessoaId : objDTO.getPessoasId()) {
 			Optional<Pessoa> pessoa = pessoaRepository.findById(pessoaId);

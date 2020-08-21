@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rms2307.testetripletech.domain.Agendamento;
@@ -19,6 +21,7 @@ import com.rms2307.testetripletech.dto.AgendamentoNewDTO;
 import com.rms2307.testetripletech.dto.AgendamentoPorAnoMesDTO;
 import com.rms2307.testetripletech.dto.AgendamentoUpdateDTO;
 import com.rms2307.testetripletech.services.AgendamentoService;
+import com.rms2307.testetripletech.services.CSVService;
 
 @RestController
 @RequestMapping(value = "/agendamentos")
@@ -27,20 +30,34 @@ public class AgendamentoResource {
 	@Autowired
 	private AgendamentoService service;
 
+	@Autowired
+	private CSVService csvService;
+
 	@GetMapping
 	public ResponseEntity<List<Agendamento>> listarTodosAgendamentos() {
 		List<Agendamento> agendamentos = service.listarTodosAgendamentos();
 		return ResponseEntity.ok().body(agendamentos);
 	}
 
-	@GetMapping(value = "/buscarporanomes")
+	@GetMapping(value = "/buscarporanoemes")
 	public ResponseEntity<List<Agendamento>> listarAgendamentosPorAnoMes(@RequestBody AgendamentoPorAnoMesDTO objDTO) {
 		List<Agendamento> agendamentos = service.listarAgendamentoPorAnoMes(objDTO.getAno(), objDTO.getMes());
 		return ResponseEntity.ok().body(agendamentos);
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> inserir(@RequestBody AgendamentoNewDTO objDTO) {
+	public ResponseEntity<Void> inserirDeUmObj(@RequestBody AgendamentoNewDTO objDTO) {
+		Agendamento obj = service.converterObjDTOparaObj(objDTO);
+		obj = service.salvar(obj);
+		service.salvarPessoaAgendamento(objDTO, obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+
+	@PostMapping(value = "/csv")
+	public ResponseEntity<Void> inserirDeUmCSV(@RequestParam(name = "arquivo") MultipartFile arquivo) {
+		List<String> dados = csvService.processarCSV(arquivo);
+		AgendamentoNewDTO objDTO = service.converterListParaObj(dados);
 		Agendamento obj = service.converterObjDTOparaObj(objDTO);
 		obj = service.salvar(obj);
 		service.salvarPessoaAgendamento(objDTO, obj);
