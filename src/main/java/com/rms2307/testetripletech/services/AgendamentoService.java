@@ -82,6 +82,17 @@ public class AgendamentoService {
 		return obj;
 	}
 
+	public AgendamentoUpdateDTO converterListParaObjUpdate(List<String> dados) {
+		AgendamentoUpdateDTO obj = new AgendamentoUpdateDTO();
+		obj.setId(Integer.parseInt(dados.get(0)));
+
+		String[] datas = (dados.get(1)).split(",");
+		obj.setDataInicio(datas[0]);
+		obj.setDataFim(datas[1]);
+
+		return obj;
+	}
+
 	public void salvarPessoaAgendamento(AgendamentoNewDTO objDTO, Agendamento obj) {
 		for (Integer pessoaId : objDTO.getPessoasId()) {
 			Optional<Pessoa> pessoa = pessoaRepository.findById(pessoaId);

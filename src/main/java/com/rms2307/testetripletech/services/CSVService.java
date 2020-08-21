@@ -17,7 +17,6 @@ public class CSVService {
 	public List<String> processarCSV(MultipartFile arquivo) {
 		File arquivoConvertido = converterDeMultipartFileParaFile(arquivo);
 		List<String> dados = new ArrayList<>();
-
 		try (BufferedReader br = new BufferedReader(new FileReader(arquivoConvertido))) {
 			String line = br.readLine();
 			while (line != null) {
@@ -31,8 +30,8 @@ public class CSVService {
 	}
 
 	public File converterDeMultipartFileParaFile(MultipartFile arquivo) {
-		File convArq = new File(arquivo.getOriginalFilename());
-
+		File convArq = new File(System.getProperty("java.io.tmpdir") + arquivo.getOriginalFilename());
+		System.out.println(System.getProperty("java.io.tmpdir"));
 		try {
 			convArq.createNewFile();
 			FileOutputStream fos = new FileOutputStream(convArq);

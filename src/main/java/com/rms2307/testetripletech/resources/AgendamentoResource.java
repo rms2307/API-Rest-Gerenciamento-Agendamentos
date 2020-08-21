@@ -73,4 +73,14 @@ public class AgendamentoResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PutMapping(value = "/csv")
+	public ResponseEntity<Void> atualizarDeUmCSV(@RequestParam(name = "arquivo") MultipartFile arquivo) {
+		List<String> dados = csvService.processarCSV(arquivo);
+		AgendamentoUpdateDTO objDTO = service.converterListParaObjUpdate(dados);
+		Agendamento obj = service.converterObjDTOparaObj(objDTO);
+		obj.setId(obj.getId());
+		obj = service.atualizar(obj);
+		return ResponseEntity.noContent().build();
+	}
+
 }
