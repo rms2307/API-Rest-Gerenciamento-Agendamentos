@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rms2307.testetripletech.domain.Agendamento;
 import com.rms2307.testetripletech.dto.AgendamentoNewDTO;
-import com.rms2307.testetripletech.dto.AgendamentoPorAnoMesDTO;
 import com.rms2307.testetripletech.dto.AgendamentoUpdateDTO;
 import com.rms2307.testetripletech.services.AgendamentoService;
 import com.rms2307.testetripletech.services.CSVService;
@@ -41,9 +40,9 @@ public class AgendamentoResource {
 		return ResponseEntity.ok().body(agendamentos);
 	}
 
-	@GetMapping(value = "/buscarporanoemes")
-	public ResponseEntity<List<Agendamento>> listarAgendamentosPorAnoMes(@RequestBody AgendamentoPorAnoMesDTO objDTO) {
-		List<Agendamento> agendamentos = service.listarAgendamentoPorAnoMes(objDTO.getAno(), objDTO.getMes());
+	@GetMapping(value = "/{ano}/{mes}")
+	public ResponseEntity<List<Agendamento>> listarAgendamentosPorAnoMes(@PathVariable String ano, @PathVariable String mes) {
+		List<Agendamento> agendamentos = service.listarAgendamentoPorAnoMes(ano, mes);
 		return ResponseEntity.ok().body(agendamentos);
 	}
 
